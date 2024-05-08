@@ -1,17 +1,20 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Header from './components/Header';
-import Home from './screens/Home';
-import About from './screens/About';
+import { createBrowserRouter } from 'react-router-dom';
 
-function Router() {
-  return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
-export default Router;
+import Root from './Root';
+import About from './screens/About';
+import Home from './screens/Home';
+
+// 컴포넌트가 아니라 router 정보만 export
+// children으로 하위 페이지 관리가 용이하다.
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    children: [
+      { path: '', element: <Home /> },
+      { path: 'about', element: <About /> },
+    ],
+  },
+]);
+
+export default router;
